@@ -11,6 +11,10 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 void setup() {
   delay(1000);
   FastLED.addLeds<WS2811, DATA_PIN, RGB>(leds, NUM_LEDS);
+  for(int i = 0; i < NUM_LEDS; i++){
+          leds[i] = CRGB::Black;
+        }
+  FastLED.show()
   lcd.begin(16, 2);
   Serial.begin(9600);
 }
@@ -36,9 +40,10 @@ void loop() {
         int g = data.substring(xIndex + 1, secondxIndex).toInt();
         int b = data.substring(secondxIndex + 1).toInt();
 
-        for(int i; i < NUM_LEDS; i++){
-          leds[i] = CRGB(r,g,b);
+        for(int i = 0; i < NUM_LEDS; i++){
+          leds[i] = CRGB(b,r,g);
         }
+        FastLED.show()
 
         
       }
